@@ -13,28 +13,22 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          # Remove cache temporarily to test
+          cache: 'pnpm'
       
       - name: Install dependencies
-        run: npm install --no-frozen-lockfile
-
-      - name: Verify installation
-        run: |
-          echo "Node version:"
-          node --version
-          echo "NPM version:"
-          npm --version
-          echo "Checking node_modules:"
-          ls -la node_modules/.bin/ | grep vite || echo "Vite not found in node_modules"
-          echo "Package.json scripts:"
-          cat package.json | grep -A 5 "scripts"
+        run: pnpm install
       
       - name: Build project
-        run: npm run build
+        run: pnpm run build
       
       - name: Deploy to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
