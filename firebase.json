@@ -1,0 +1,10 @@
+{
+  "hosting": {
+    "public": "testing-project-6236c",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
