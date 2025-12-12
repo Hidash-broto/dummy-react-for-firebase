@@ -17,14 +17,25 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
+          # Remove cache temporarily to test
       
       - name: Install dependencies
         run: npm install
       
+      - name: Verify installation
+        run: |
+          echo "Node version:"
+          node --version
+          echo "NPM version:"
+          npm --version
+          echo "Checking node_modules:"
+          ls -la node_modules/.bin/ | grep vite || echo "Vite not found in node_modules"
+          echo "Package.json scripts:"
+          cat package.json | grep -A 5 "scripts"
+      
       - name: Build project
         run: npm run build
-
+      
       - name: Deploy to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
