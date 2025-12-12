@@ -20,8 +20,8 @@ jobs:
           # Remove cache temporarily to test
       
       - name: Install dependencies
-        run: npm install
-      
+        run: npm install --no-frozen-lockfile
+
       - name: Verify installation
         run: |
           echo "Node version:"
